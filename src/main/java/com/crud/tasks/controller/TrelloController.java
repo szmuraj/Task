@@ -32,6 +32,8 @@ public class TrelloController {
         trelloBoards.forEach(trelloBoardDto -> {
             if(trelloBoardDto.getName().contains(name)) {
                 System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName());
+            } else {
+                System.out.println("There is any board named " + name);
             };
         });
     }
