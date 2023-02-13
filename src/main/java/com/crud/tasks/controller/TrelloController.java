@@ -30,7 +30,9 @@ public class TrelloController {
         List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
 
         trelloBoards.forEach(trelloBoardDto -> {
-            System.out.println(trelloBoardDto.getName().contains(name));
+            if(trelloBoardDto.getName().contains(name)) {
+                System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName());
+            };
         });
     }
 }
