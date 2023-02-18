@@ -9,7 +9,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class Mail {
     private final String mailTo;
-    private final String toCc;
+    private final Optional toCc;
     private final String subject;
     private final String message;
 }

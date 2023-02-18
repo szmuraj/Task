@@ -9,6 +9,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
+import java.util.Optional;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -24,11 +26,11 @@ class SimpleEmailServiceTest {
     @Test
     public void shouldSendEmailWithCc() {
         //Given
-        Mail mail = new Mail("test@test.com", "cc@test.com","Test", "Test Message");
+        Mail mail = new Mail("test@test.com", Optional.of("cc@test.com"),"Test Message","Test");
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
-        mailMessage.setCc(mail.getToCc());
+        mail.getToCc().ifPresent(cc -> mailMessage.setCc(cc.toString()));
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());
 
@@ -42,10 +44,11 @@ class SimpleEmailServiceTest {
     @Test
     public void shouldSendEmailWithoutCc() {
         //Given
-        Mail mail = new Mail("test@test.com", "","Test", "Test Message");
+        Mail mail = new Mail("test@test.com", Optional.empty(),"Test", "Test Message");
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
+        mail.getToCc().ifPresent(cc -> mailMessage.setCc(cc.toString()));
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());
 
