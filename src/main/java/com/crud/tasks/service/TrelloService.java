@@ -8,6 +8,7 @@ import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.trello.client.TrelloClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import static java.util.Optional.ofNullable;
 
 import java.util.List;
 
