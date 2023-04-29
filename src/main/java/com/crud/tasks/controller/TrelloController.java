@@ -1,8 +1,8 @@
 package com.crud.tasks.controller;
 
 import com.crud.tasks.domain.CreatedTrelloCardDto;
-import com.crud.tasks.domain.TrelloBoardDto;
-import com.crud.tasks.domain.TrelloCardDto;
+import com.crud.tasks.domain.Dto.TrelloBoardDto;
+import com.crud.tasks.domain.Dto.TrelloCardDto;
 import com.crud.tasks.trello.facade.TrelloFacade;
 
 import lombok.RequiredArgsConstructor;
