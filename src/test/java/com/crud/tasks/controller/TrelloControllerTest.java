@@ -51,7 +51,7 @@ class TrelloControllerTest {
     void shouldFetchTrelloBoards() throws Exception {
         // Given
         List<TrelloListDto> trelloLists = List.of(new TrelloListDto("1", "Test list", false));
-        List<TrelloBoardDto> trelloBoards = List.of(new TrelloBoardDto("Test Task", "1", trelloLists));
+        List<TrelloBoardDto> trelloBoards = List.of(new TrelloBoardDto("1", "Test Task", trelloLists));
         when(trelloFacade.fetchTrelloBoards()).thenReturn(trelloBoards);
 
         //When & Then

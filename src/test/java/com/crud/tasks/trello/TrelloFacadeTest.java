@@ -71,7 +71,7 @@ class TrelloFacadeTest {
                 List.of(new TrelloListDto("1", "test_list", false));
 
         List<TrelloBoardDto> trelloBoards =
-                List.of(new TrelloBoardDto("test", "1", trelloLists));
+                List.of(new TrelloBoardDto("1", "test", trelloLists));
 
         List<TrelloList> mappedTrelloLists =
                 List.of(new TrelloList("1", "test_list", false));

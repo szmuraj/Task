@@ -1,15 +1,13 @@
 package com.crud.tasks.controller;
 
-import com.crud.tasks.domain.Task;
 import com.crud.tasks.domain.Dto.TaskDto;
-
 import com.crud.tasks.mapper.TaskMapper;
 import com.crud.tasks.service.DbService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 
@@ -23,8 +21,7 @@ public class TaskController {
 
     @GetMapping
     public ResponseEntity<List<TaskDto>> getTasks() {
-        List<Task> tasks = service.getAllTasks();
-        return ResponseEntity.ok(taskMapper.mapToTaskDtoList(tasks));
+        return ResponseEntity.ok(taskMapper.mapToTaskDtoList(service.getAllTasks()));
     }
 
     @GetMapping(value = "{taskId}")
@@ -34,22 +31,17 @@ public class TaskController {
 
     @DeleteMapping
     public ResponseEntity<TaskDto> deleteTask(@RequestBody TaskDto taskDto) {
-        Task task = taskMapper.mapToTask(taskDto);
-        Task deletedTask = service.deleteTask(task);
-        return ResponseEntity.ok(taskMapper.mapToTaskDto(deletedTask));
+        return ResponseEntity.ok(taskMapper.mapToTaskDto(service.deleteTask(taskMapper.mapToTask(taskDto))));
     }
 
     @PutMapping
     public ResponseEntity<TaskDto> updateTask(@RequestBody TaskDto taskDto) {
-        Task task = taskMapper.mapToTask(taskDto);
-        Task savedTask = service.saveTask(task);
-        return ResponseEntity.ok(taskMapper.mapToTaskDto(savedTask));
+        return ResponseEntity.ok(taskMapper.mapToTaskDto(service.saveTask(taskMapper.mapToTask(taskDto))));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createTask(@RequestBody TaskDto taskDto) {
-        Task task = taskMapper.mapToTask(taskDto);
-        service.saveTask(task);
+        service.saveTask(taskMapper.mapToTask(taskDto));
         return ResponseEntity.ok().build();
     }
 }
