@@ -32,6 +32,9 @@ class TaskControllerTest {
 
     @MockBean
     private DbService service;
+
+    @MockBean
+    private TaskDto taskDto;
     @Test
     void shouldFetchEmptyTasks() throws Exception {
         //Given
@@ -94,14 +97,14 @@ class TaskControllerTest {
         tasks.add(new TaskDto(1L, "Test title", "Test content"));
         tasks.add(new TaskDto(2L, "Test Title", "Test Content"));
 
-        when(taskMapper.mapToTaskDtoList(service.getAllTasks())).thenReturn(tasks);
+        when(taskMapper.mapToTaskDto(service.deleteTask(taskMapper.mapToTask(taskDto)))).thenReturn(tasks.get(1));
 
         //When & Then
         mockMvc
                 .perform(MockMvcRequestBuilders
-                        .delete("/v1/tasks")
+                        .delete("/v1/tasks/1")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)));
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
@@ -118,9 +121,9 @@ class TaskControllerTest {
                 .perform(MockMvcRequestBuilders
                         .put("/v1/tasks/0")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.title", Matchers.is("Updated title")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.content", Matchers.is("Test content")));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].title", Matchers.is("Updated title")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].content", Matchers.is("Test content")));
     }
 
     @Test
