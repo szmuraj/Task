@@ -30,8 +30,9 @@ public class TaskController {
     }
 
     @DeleteMapping
-    public ResponseEntity<TaskDto> deleteTask(@RequestBody TaskDto taskDto) {
-        return ResponseEntity.ok(taskMapper.mapToTaskDto(service.deleteTask(taskMapper.mapToTask(taskDto))));
+    public ResponseEntity<Void> deleteTask(@RequestBody TaskDto taskDto) {
+        taskMapper.mapToTaskDto(service.deleteTask(taskMapper.mapToTask(taskDto)));
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping
